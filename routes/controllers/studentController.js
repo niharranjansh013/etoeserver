@@ -4,10 +4,16 @@ var express=require('express')
 var router=express.Router();
 var {getStudentService,regStudentService}=require('../services/studentService')
 
+
+
+
 // http://localhost:2020/std/reg-std, post
-router.post("/reg-std",function(req,res,next){ //req recieved
+router.post("/reg-std",async function(req,res,next){ //req recieved
+    try{
+    const{data}=req.body
+    console.log(data)
     console.log("reg-std controller")
-    regStudentService()
+    var result=await regStudentService(data)
     //take the data from the req
     //connect with db
     //performed required operation
@@ -15,19 +21,25 @@ router.post("/reg-std",function(req,res,next){ //req recieved
     //send res back to client
 
     //to send the response to client
-    res.send("Hello Nihar")
+    console.log("controller recieve the result from service and give to client as a response")
+    res.send(result)
+}catch(exception){
+    console.error(exception)
+    res.send(exception.message)
+}
+
 })
 
 // http://localhost:2020/std/get-std, get
-router.get("/get-std",function(req,res,next){ //req recieved
+router.get("/get-std",async function(req,res,next){ //req recieved
     console.log("get-std Controller")
-    getStudentService()
+    var result=await getStudentService()
     //take the data from the req
     //connect with db
     //performed required operation
     //prepare response
     //send res back to client
-    res.send("Hello Dhoni")
+    res.send(result)
 })
 
 
