@@ -2,8 +2,9 @@
 var express=require('express')
 //get the router
 var router=express.Router();
-var {getStudentService,regStudentService,loginService}=require('../services/studentService')
-var validateToken=require('../../common/validateToken')
+var {getStudentService,regStudentService,loginService,deleteStudentService,updateStudentService}=require('../services/studentService')
+var validateToken=require('../../common/validateToken');
+const getDBConn = require('../../common/getDBConn');
 
 
 
@@ -53,6 +54,27 @@ router.get(
     res.send(result)
 })
 
+//update
+router.put(
+"/update-std",
+validateToken,
+async function(req,res,next){
+    var {id}=req.query;
+    var {data}=req.body;
+var result=await updateStudentService(id,data)
+res.send(result)
+}
+)
+//delete
+router.delete(
+    '/delete-std/:id',
+    // validateToken,
+    async function(req,res,next){
+       var {id}= req.params
+      var result= await deleteStudentService(id)
+      res.send(result)
+    }
+)
 
 //to export the router
 module.exports=router;
