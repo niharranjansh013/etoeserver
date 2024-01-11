@@ -1,3 +1,4 @@
+var jwt=require('jsonwebtoken')
 var { getStudentDAO, regStudentDAO, loginDAO } = require('../dao/studentsDAO')
 async function regStudentService(data) {
   console.log("regStudentService")
@@ -7,6 +8,12 @@ async function regStudentService(data) {
 }
 async function loginService(data){
  const result= await loginDAO(data)
+ if(result.length){
+   var token= jwt.sign(data,"appToken")
+   console.log(token)
+   delete result[0].pwd
+   result[0].token=token
+ }
  return result
 }
 

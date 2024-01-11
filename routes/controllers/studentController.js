@@ -3,7 +3,7 @@ var express=require('express')
 //get the router
 var router=express.Router();
 var {getStudentService,regStudentService,loginService}=require('../services/studentService')
-
+var validateToken=require('../../common/validateToken')
 
 
 
@@ -36,8 +36,13 @@ router.post("/login",async function(req,res,next){
     res.send(result)
 })
 
+
+
 // http://localhost:2020/std/get-std, get
-router.get("/get-std",async function(req,res,next){ //req recieved
+router.get(
+    "/get-std",
+    validateToken,
+    async function(req,res,next){ //req recieved
     console.log("get-std Controller")
     var result=await getStudentService()
     //take the data from the req

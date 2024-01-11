@@ -1,4 +1,4 @@
-var getDBConn=require('../../connection/getDBConn')
+var getDBConn=require('../../common/getDBConn')
 
 async function regStudentDAO(data) {
     console.log("regStudentDAO")
