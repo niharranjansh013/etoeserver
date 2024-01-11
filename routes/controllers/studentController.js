@@ -2,7 +2,7 @@
 var express=require('express')
 //get the router
 var router=express.Router();
-var {getStudentService,regStudentService}=require('../services/studentService')
+var {getStudentService,regStudentService,loginService}=require('../services/studentService')
 
 
 
@@ -28,6 +28,12 @@ router.post("/reg-std",async function(req,res,next){ //req recieved
     res.send(exception.message)
 }
 
+})
+
+router.post("/login",async function(req,res,next){
+    const {data}=req.body
+    const result=await loginService(data)
+    res.send(result)
 })
 
 // http://localhost:2020/std/get-std, get

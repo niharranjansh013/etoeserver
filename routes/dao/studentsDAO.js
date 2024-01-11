@@ -12,6 +12,14 @@ async function regStudentDAO(data) {
     //here async function returns the result in the form of Promise so we can handle it in service by putting await keyword
 }
 
+async function loginDAO(data){
+    const{uid,pwd}=data
+     const db=await getDBConn()
+    const collection= db.collection("student")
+   const result=await collection.find({uid,pwd}).toArray()
+   return result
+}
+
 async function getStudentDAO() {
     console.log("getStudentDAO")
     var db=await getDBConn()
@@ -22,6 +30,7 @@ async function getStudentDAO() {
 }
 
 module.exports = {
+    loginDAO,
     regStudentDAO,
     getStudentDAO
 }
