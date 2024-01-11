@@ -7,7 +7,7 @@ async function getDBConn(){
    //using MongoClient we can connect with mongo servers
    var mongoClient = mongo.MongoClient
    //connect method returns promise object we have retrive the data here using await keyword
-   var server = await mongoClient.connect(url)
+   var server = await mongoClient.connect(process.env.DB_CONN_URL)
    var db = server.db("School")
    return db
 }
