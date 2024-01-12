@@ -35,13 +35,21 @@ async function updateStudentDAO(id,data){
   var result= await collection.updateOne({_id:new ObjectId(id)},{$set:data})
   return result
 }
-async function deleteStudentDAO(id,data){
+async function deleteStudentDAO(id){
     var db= await getDBConn()
     var collection=db.collection("student")
    var result= await collection.deleteOne({_id:new ObjectId(id)})
    return result
  }
+
+ async function getStdByIdDAO(id){
+    var db= await getDBConn()
+    var collection=db.collection("student")
+   var result= await collection.findOne({_id:new ObjectId(id)})
+   return result
+ }
 module.exports = {
+    getStdByIdDAO,
     loginDAO,
     regStudentDAO,
     getStudentDAO,
